@@ -106,7 +106,7 @@
 	</div>
 </div>
 
-<div class="grid grid-cols-1 container is-fluid xl:grid-cols-3">
+<div class="grid grid-cols-1 container is-fluid lg:grid-cols-2 xl:grid-cols-3">
 	{#each wallets as wallet}
 		<div class="card container is-max-desktop mt-10 justify-self-auto w-96 rounded-lg">
 			<header class="card-header bg-gray-100">
