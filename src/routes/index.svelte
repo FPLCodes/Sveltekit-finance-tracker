@@ -15,7 +15,7 @@
 	});
 </script>
 
-<div class="card container is-max-desktop max-w-sm mt-10">
+<div class="card container is-max-desktop max-w-md mt-10">
 	<header class="card-header bg-yellow-100 text-lg">
 		<p class="card-header-title">Total Balance: RM {totalBalance}</p>
 	</header>
