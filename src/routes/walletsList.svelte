@@ -8,7 +8,7 @@
 
 <script>
 	export let wallets;
-	let newBalance;
+	let newBalance = 0;
 
 	let walletName = '';
 	let walletChoice = wallets[0].name;
