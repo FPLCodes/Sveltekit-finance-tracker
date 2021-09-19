@@ -18,6 +18,8 @@
 	});
 
 	let amount = 0;
+	let amountToAdd = 0;
+	let walletToAdd = '';
 	let description = '';
 	let walletChoice = wallets[0].name;
 
@@ -33,7 +35,24 @@
 				body: JSON.stringify(transaction)
 			});
 			fetchTransactions();
+			updateWallet(false);
 			console.log('Transaction completed');
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	async function deleteTransaction(transaction) {
+		amountToAdd = transaction.amount;
+		walletToAdd = transaction.walletUsed;
+		try {
+			await fetch('/transactions', {
+				method: 'DELETE',
+				body: JSON.stringify(transaction)
+			});
+			fetchTransactions();
+			updateWallet(true);
+			console.log('Transaction deleted');
 		} catch (err) {
 			console.log(err);
 		}
@@ -44,21 +63,72 @@
 		const jsonRes = await res.json();
 		transactions = jsonRes.transactions;
 	}
+
+	async function updateWallet(add) {
+		let newBalance = 0;
+		let walletToChange = add ? walletToAdd : walletChoice;
+		wallets.forEach((wallet) => {
+			if (wallet.name == walletToChange) {
+				if (add === true) {
+					newBalance = wallet.balance + amountToAdd;
+				} else newBalance = wallet.balance - amount;
+			}
+		});
+		try {
+			const wallet = {
+				name: walletToChange,
+				balance: newBalance
+			};
+			await fetch('/wallets', {
+				method: 'POST',
+				body: JSON.stringify(wallet)
+			});
+			console.log('Created wallet');
+			fetchWallets();
+			console.log('Wallet updated');
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	async function fetchWallets() {
+		const res = await fetch('/wallets');
+		const jsonRes = await res.json();
+		wallets = jsonRes.wallets;
+	}
 </script>
 
 <div class="flex">
-	<div class="card container is-max-desktop max-w-md">
-		<header class="card-header bg-yellow-100 text-lg">
-			<p class="card-header-title">Total Balance: RM {totalBalance}</p>
-		</header>
-		<div class="card-content ">
-			<div class="content font-semibold">
-				{#each wallets as wallet}
-					<div class="block">
-						{wallet.name}: RM {wallet.balance}
-					</div>
-				{/each}
+	<div class="container is-max-desktop max-w-md">
+		<div class="card container is-max-desktop max-w-md">
+			<header class="card-header bg-yellow-100 text-lg">
+				<p class="card-header-title">Total Balance: RM {totalBalance}</p>
+			</header>
+			<div class="card-content ">
+				<div class="content font-semibold">
+					{#each wallets as wallet}
+						<div class="block">
+							{wallet.name}: RM {wallet.balance}
+						</div>
+					{/each}
+				</div>
 			</div>
+		</div>
+		<div class="mt-5">
+			<h1 class="text-2xl mb-3 font-semibold">Transaction history</h1>
+			{#each transactions as transaction}
+				<div class="card grid grid-cols-2">
+					<div class="card-content">
+						<div class="content">
+							<h3>RM {transaction.amount}</h3>
+							<p>{transaction.desc}</p>
+						</div>
+					</div>
+					<div class="justify-self-end mt-2 mr-2">
+						<button class="delete" on:click={deleteTransaction(transaction)} />
+					</div>
+				</div>
+			{/each}
 		</div>
 	</div>
 

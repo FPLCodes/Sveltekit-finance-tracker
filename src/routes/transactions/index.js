@@ -47,20 +47,19 @@ export async function post(request) {
 	}
 }
 export async function put(request) {
+	// Not needed
+}
+
+export async function del(request) {
 	try {
 		const dbConnection = await connectToDatabase();
 		const db = dbConnection.db;
 		const collection = db.collection('transactions');
 
 		const transaction = JSON.parse(request.body);
-		await collection.updateOne(
-			{
-				_id: ObjectId(transaction)
-			},
-			{
-				$set: { total: transaction.total + transaction.amount }
-			}
-		);
+		await collection.deleteOne({
+			_id: ObjectId(transaction._id)
+		});
 
 		return {
 			status: 200,
@@ -78,5 +77,3 @@ export async function put(request) {
 		};
 	}
 }
-
-export async function del(request) {}
