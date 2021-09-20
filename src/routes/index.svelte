@@ -125,9 +125,9 @@
 	}
 </script>
 
-<div class="grid grid-cols-1 place-content-center lg:grid-cols-2">
-	<div class="container is-fluid max-w-2xl mb-3 lg:max-w-2xl">
-		<div class="card container is-max-desktop max-w-2xl lg:max-w-3xl">
+<div class="grid grid-cols-1 lg:grid-cols-2">
+	<div class="container is-fluid max-w-2xl mb-3 ml-0 lg:max-w-2xl md:ml-2 xl:ml-24">
+		<div class="card container is-max-desktop max-w-2xl lg:max-w-3xl md:ml-2 xl:ml-24">
 			<header class="card-header bg-yellow-100 text-2xl lg:text-3xl">
 				<p class="card-header-title">Total Balance: RM {totalBalance}</p>
 			</header>
@@ -148,46 +148,48 @@
 		</div>
 	</div>
 
-	<div class="container is-max-desktop max-w-md lg:max-w-md md:max-w-2xl sm:max-w-xl">
-		<h1 class="text-2xl mb-3 font-semibold">Add Transactions</h1>
-		<div class="card">
-			<header class="card-header bg-gray-100">
-				<p class="card-header-title">Amount:</p>
-				<input
-					type="number"
-					class="card-header-title bg-gray-100 text-center"
-					bind:value={amount}
-				/>
-			</header>
-			<div class="card-content">
-				<div class="content">
+	<div class="container is-fluid">
+		<div class="container is-max-desktop max-w-xl mr-8 lg:max-w-md xl:ml-20 md:max-w-2xl md:ml-2">
+			<h1 class="text-2xl mb-3 font-semibold">Add Transactions</h1>
+			<div class="card">
+				<header class="card-header bg-gray-100">
+					<p class="card-header-title">Amount:</p>
 					<input
-						type="text"
-						placeholder="Description"
-						bind:value={description}
-						class="outline-none min-w-full"
+						type="number"
+						class="card-header-title bg-gray-100 text-center"
+						bind:value={amount}
 					/>
+				</header>
+				<div class="card-content">
+					<div class="content">
+						<input
+							type="text"
+							placeholder="Description"
+							bind:value={description}
+							class="outline-none min-w-full"
+						/>
+					</div>
 				</div>
-			</div>
-			<footer class="card-footer">
-				<div class="w-40 mr-3">
-					<select
-						class="text-center font-bold h-10 outline-none mr-20 cursor-pointer w-40"
-						bind:value={walletChoice}
+				<footer class="card-footer">
+					<div class="w-40 mr-3">
+						<select
+							class="text-center font-bold h-10 outline-none mr-20 cursor-pointer w-40"
+							bind:value={walletChoice}
+						>
+							{#each wallets as wallet}
+								<option>{wallet.name}</option>
+							{/each}
+						</select>
+					</div>
+					<button class="card-footer-item bg-green-500 font-semibold" on:click={addTransaction}
+						>Confirm</button
 					>
-						{#each wallets as wallet}
-							<option>{wallet.name}</option>
-						{/each}
-					</select>
-				</div>
-				<button class="card-footer-item bg-green-500 font-semibold" on:click={addTransaction}
-					>Confirm</button
-				>
-			</footer>
+				</footer>
+			</div>
 		</div>
 	</div>
-	<div class="container is-fluid max-w-2xl mt-3 lg:max-w-3xl">
-		<div class="container is-max-desktop max-w-2xl mb-3 lg:max-w-3xl">
+	<div class="container is-fluid max-w-2xl mt-3 ml-0 lg:max-w-3xl xl:ml-24 md:ml-0">
+		<div class="container is-max-desktop max-w-2xl mb-3 lg:max-w-3xl xl:ml-24 md:ml-2">
 			<h1 class="text-2xl mb-3 font-semibold">Transaction history</h1>
 			{#each transactions as transaction}
 				<div class="card grid grid-cols-2 mt-2 max-w-3xl transition hover:scale-105">

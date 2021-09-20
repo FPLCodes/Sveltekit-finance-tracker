@@ -106,23 +106,25 @@
 	</div>
 </div>
 
-<div class="grid grid-cols-1 container is-fluid lg:grid-cols-2 xl:grid-cols-3">
-	{#each wallets as wallet}
-		<div class="card container is-max-desktop mt-10 justify-self-auto w-96 rounded-lg">
-			<header class="card-header bg-gray-100">
-				<p class="card-header-title">{wallet.name}</p>
-			</header>
-			<div class="card-content ">
-				<div class="content font-semibold">
-					Balance: RM {wallet.balance}
-					<br />
+<div class="w-5/6 m-auto">
+	<div class="grid grid-cols-1 container is-fluid lg:grid-cols-2 xl:grid-cols-3">
+		{#each wallets as wallet}
+			<div class="card container is-max-desktop mt-10 justify-self-auto w-96 rounded-lg lg:w-80">
+				<header class="card-header bg-gray-100">
+					<p class="card-header-title">{wallet.name}</p>
+				</header>
+				<div class="card-content ">
+					<div class="content font-semibold">
+						Balance: RM {wallet.balance}
+						<br />
+					</div>
 				</div>
+				<footer class="card-footer">
+					<button class="card-footer-item bg-red-400 font-semibold" on:click={deleteWallet(wallet)}
+						>Delete</button
+					>
+				</footer>
 			</div>
-			<footer class="card-footer">
-				<button class="card-footer-item bg-red-400 font-semibold" on:click={deleteWallet(wallet)}
-					>Delete</button
-				>
-			</footer>
-		</div>
-	{/each}
+		{/each}
+	</div>
 </div>

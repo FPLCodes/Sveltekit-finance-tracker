@@ -23,7 +23,6 @@
 		"svelte-preprocess": "^4.9.4",
 		"tailwindcss": "^2.2.15"
 	},
-	"type": "commonjs",
 	"dependencies": {
 		"axios": "^0.21.4",
 		"dotenv": "^10.0.0",
